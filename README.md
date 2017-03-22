@@ -6,6 +6,9 @@
     提供common基础类库
         asyncThreadProcess.go 提供异步线程处理类,待完善
         
+#### const.go
+    1.WithNanos 时间格式化字符串 2006-01-02 15:04:05
+        
 #### fileProcess.go
     1. CreateFileProcess
         文件夹创建方法 接收参数文件夹路径  返回错误对象
@@ -74,3 +77,8 @@
     3. RmPidFile
         删除PID文件
         输入参数：pid文件路径
+#### dateProcess.go
+
+    1.DateFormat
+        时间格式化处理
+        输入参数:需要格式化的时间 格式化方式 示例yyyy-MM-dd hh:mm:ss.tttttt   2017-03-22 10:21:55.379415
