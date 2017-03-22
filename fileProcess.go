@@ -121,6 +121,45 @@ func ReadFileByLine(filePath string) (*[]string, error) {
 }
 
 /**
+根据条件读写文件
+创建人:邵炜
+创建时间:2017年3月22日11:03:31
+输入参数:文件路径 文件写入对象 条件平判断方法
+输出参数:错误对象
+*/
+func RWFileByWhere(fileName string, fileWrite *os.File, where func(content string, fileWrite *os.File)) error {
+	var (
+		readAll  = false
+		readByte []byte
+		line     []byte
+		err      error
+	)
+	fs, err := os.Open(fileName)
+	if err != nil {
+		return err
+	}
+	defer fs.Close()
+	buf := bufio.NewReader(fs)
+	for err != io.EOF {
+		if err != nil {
+		}
+		if readAll {
+			readByte, readAll, err = buf.ReadLine()
+			line = append(line, readByte...)
+		} else {
+			readByte, readAll, err = buf.ReadLine()
+			line = append(line, readByte...)
+			if len(strings.TrimSpace(string(line))) == 0 {
+				continue
+			}
+			where(string(line), fileWrite)
+			line = line[:0]
+		}
+	}
+	return nil
+}
+
+/**
 文件打开
 创建人:邵炜
 创建时间:2017年3月14日14:54:08
