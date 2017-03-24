@@ -87,3 +87,20 @@
     1.DateFormat
         时间格式化处理
         输入参数:需要格式化的时间 格式化方式 示例yyyy-MM-dd hh:mm:ss.tttttt   2017-03-22 10:21:55.379415
+        
+#### redisHelp.go
+    
+    1. OpenRedis
+        redis通道开启
+        addr IP地址+端口     idx 仓库数  
+        
+    2. CloseRedis
+        redis通道关闭
+        
+    3. SetRedisCache
+        设置redis缓存
+        key 存储键名    value 存储值    cacheBssSeconds 存储时间(单位秒)
+        
+    4. GetRedisCache
+        获取redis缓存
+        key 存储键名
