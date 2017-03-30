@@ -7,7 +7,7 @@ package common
 import (
 	"database/sql"
 	"fmt"
-	"github.com/smtc/glog"
+	_ "github.com/lib/pq"
 )
 
 // GP数据库连接对象
