@@ -33,7 +33,7 @@ type MySqlDBStruct struct {
 输出对象：数据库连接对象
 */
 func MySqlSQlConntion(model MySqlDBStruct) *sql.DB {
-	dbClause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true&allowAllFiles=true", model.DbUser, model.DbPass, model.DbHost, model.DbPort, model.DbName)
+	dbClause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&allowAllFiles=true", model.DbUser, model.DbPass, model.DbHost, model.DbPort, model.DbName)
 	dbs, err := sql.Open("mysql", dbClause)
 	if err != nil {
 		glog.Error("mysql can't connection dbClause: %s err: %s \n", dbClause, err.Error())
