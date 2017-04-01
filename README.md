@@ -104,3 +104,48 @@
     4. GetRedisCache
         获取redis缓存
         key 存储键名
+        
+#### decryptionProcess.go
+
+    1. AesEncrypt
+        字符串加密
+        输入参数: 需要加密的字符串
+        输出参数: 加密后字符串 错误对象
+        
+    2. AesDecrypt
+        字符串解密
+        输入参数: 需要解密的字符串  解密后字符串长度
+        输出参数: 解密后字符串  错误对象
+        
+#### gpDB.go
+    
+    // GP数据库连接对象
+    // create by gloomy 2017-3-30 15:27:26
+    type GpDBStruct struct {
+    	DbUser string //数据库用户名
+    	DbHost string //数据库地址
+    	DbPort int    //数据库端口
+    	DbPass string //数据库密码
+    	DbName string //数据库库名
+    }
+    
+    其余同mysql类
+    
+    提供方法:
+        GpSqlConntion GP数据库连接
+        GpSqlClose GP数据库关闭
+        GpSqlSelect 查询方法
+        GpSqlExec 数据库运行方法
+        
+#### mathProcess.go
+    
+    1. Rounding
+        四舍五入取舍
+        
+    2. RoundingByInt
+        四舍五入取舍
+        除数 被除数 取舍几位
+        
+    3. RoundingPercentageByInt
+        四舍五入取舍 百分比
+        除数 被除数 取舍几位
