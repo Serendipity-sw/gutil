@@ -60,3 +60,20 @@ func ftpLogin(model *FtpHelpStruct) (*ftp.ServerConn, error) {
 	}
 	return c, err
 }
+
+// FTP文件删除
+// create by gloomy 2017-04-02 01:08:15
+// 文件名 ftp配置对象
+// 错误对象
+func FtpRemoveFile(filePathStr string, model *FtpHelpStruct) error {
+	var (
+		err error
+	)
+	if ftpConntion == nil || ftpConntion.NoOp() != nil {
+		ftpConntion, err = ftpLogin(model)
+		if err != nil {
+			return err
+		}
+	}
+	return ftpConntion.Delete(filePathStr)
+}
