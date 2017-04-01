@@ -149,3 +149,20 @@
     3. RoundingPercentageByInt
         四舍五入取舍 百分比
         除数 被除数 取舍几位
+        
+#### ftpHelpProcess.go
+
+    FTP帮助类实体
+    type FtpHelpStruct struct {
+    	IpAddr string // ip 地址
+    	Port int // 端口
+    	TimeOut time.Duration // 超时时间
+    	UserName string // 用户名
+    	PassWord string // 密码
+    	FilePaths string // 目标服务器路径
+    }
+    
+    1. FtpFileStor
+         FTP文件传输        
+         FTP配置实体 文件内容 创建目标服务器的文件名
+         错误对象
