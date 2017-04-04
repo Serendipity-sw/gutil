@@ -77,3 +77,20 @@ func FtpRemoveFile(filePathStr string, model *FtpHelpStruct) error {
 	}
 	return ftpConntion.Delete(filePathStr)
 }
+
+// ftp修正远程服务器文件名称
+// create by gloomy 2017-04-04 21:26:48
+// 源文件 修正后的文件名称 ftp配置对象
+// 错误对象
+func FtpRenameFile(from, to string, model *FtpHelpStruct) error {
+	var (
+		err error
+	)
+	if ftpConntion == nil || ftpConntion.NoOp() != nil {
+		ftpConntion, err = ftpLogin(model)
+		if err != nil {
+			return err
+		}
+	}
+	return ftpConntion.Rename(from, to)
+}
