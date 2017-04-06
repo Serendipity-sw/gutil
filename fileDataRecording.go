@@ -5,33 +5,39 @@ package common
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
 )
 
-const maxFileDataRecordingBytes = 1000000
+const maxFileDataRecordingBytes = 1000000 // 默认文件大小
 
 // 文件数据记录对象
 // create by gloomy 2017-04-06 10:15:00
 type FileDataRecording struct {
-	sync.Mutex           // 锁
-	F           *os.File // 文件对象
-	FilePre     string   // 文件开头字符串
-	Fn          string   // 文件路径
-	Bytes       int      // 文件大小
-	Seq         int      // 第几个
-	FileProgram string   // 文件存放路径
+	sync.Mutex                         // 锁
+	F                         *os.File // 文件对象
+	FilePre                   string   // 文件开头字符串
+	Fn                        string   // 文件路径
+	Bytes                     int      // 文件大小
+	Seq                       int      // 第几个
+	FileProgram               string   // 文件存放路径
+	MaxFileDataRecordingBytes int      // 文件大小
 }
 
 // 打开文件数据记录
 // create by gloomy 2017-04-06 10:17:38
-// 文件存放目录地址 文件开头字符串
+// 文件存放目录地址 文件开头字符串 文件大小
 // 文件数据对象
-func OpenLoadFile(fileProgram, filePre string) *FileDataRecording {
+func OpenLoadFile(fileProgram, filePre string, maxSize int) *FileDataRecording {
+	if maxSize == 0 {
+		maxSize = maxFileDataRecordingBytes
+	}
 	lf := &FileDataRecording{
-		FilePre:     filePre,
-		FileProgram: fileProgram,
+		FilePre:                   filePre,
+		FileProgram:               fileProgram,
+		MaxFileDataRecordingBytes: maxSize,
 	}
 	lf.Rotate()
 	return lf
@@ -96,7 +102,7 @@ func (f *FileDataRecording) WriteData(dataStr string) (err error) {
 		}
 	}
 	dataStrLen := len(dataStr)
-	if f.Bytes+dataStrLen > maxFileDataRecordingBytes {
+	if f.Bytes+dataStrLen > f.MaxFileDataRecordingBytes {
 		f.Close()
 		if err = f.CreateNewFile(); err != nil {
 			return
@@ -105,4 +111,32 @@ func (f *FileDataRecording) WriteData(dataStr string) (err error) {
 	f.Bytes += dataStrLen
 	_, err = f.F.WriteString(dataStr)
 	return
+}
+
+// 获取所有完成的文件列表
+// create by gloomy 2017-04-06 13:46:51
+// 文件列表
+func (f *FileDataRecording) FileList() *[]string {
+	var (
+		fileArray      []string
+		pathSplitArray []string
+	)
+	filepath.Walk(f.FileProgram, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return nil
+		}
+		if ext := filepath.Ext(path); ext == ".tmp" {
+			return nil
+		}
+		if info.Size() == 0 {
+			os.Remove(path)
+			return nil
+		}
+		pathSplitArray = strings.Split(path, "/")
+		if strings.HasPrefix(pathSplitArray[len(pathSplitArray)-1], f.FilePre) {
+			fileArray = append(fileArray, path)
+		}
+		return nil
+	})
+	return &fileArray
 }
