@@ -178,7 +178,7 @@
         错误对象
         
 #### fileDataRecording.go
-
+     切块文件写入,防止文件过大 (编写缘由用于文件load进入数据库)
      文件数据记录对象
     type FileDataRecording struct {
     	sync.Mutex                         // 锁
