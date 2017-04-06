@@ -28,10 +28,21 @@ func DateFormat(timeDate time.Time, layerout string) string {
 	mapList["mm"] = timeDate.Format("04")
 	mapList["ss"] = timeDate.Format("05")
 	mapList["tttttt"] = millisecond
-	mapList["ttttt"] = millisecond[:5]
-	mapList["tttt"] = millisecond[:4]
-	mapList["ttt"] = millisecond[:3]
-	mapList["t"] = millisecond[:1]
+	if len(millisecond) >= 5 {
+		mapList["ttttt"] = millisecond[:5]
+	}
+	if len(millisecond) >= 4 {
+		mapList["tttt"] = millisecond[:4]
+	}
+	if len(millisecond) >= 3 {
+		mapList["ttt"] = millisecond[:3]
+	}
+	if len(millisecond) >= 2 {
+		mapList["tt"] = millisecond[:2]
+	}
+	if len(millisecond) >= 1 {
+		mapList["t"] = millisecond[:1]
+	}
 	for key, value := range mapList {
 		layerout = strings.Replace(layerout, key, value, -1)
 	}
