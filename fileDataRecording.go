@@ -118,8 +118,7 @@ func (f *FileDataRecording) WriteData(dataStr string) (err error) {
 // 文件列表
 func (f *FileDataRecording) FileList() *[]string {
 	var (
-		fileArray      []string
-		pathSplitArray []string
+		fileArray []string
 	)
 	filepath.Walk(f.FileProgram, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -132,8 +131,7 @@ func (f *FileDataRecording) FileList() *[]string {
 			os.Remove(path)
 			return nil
 		}
-		pathSplitArray = strings.Split(path, "/")
-		if strings.HasPrefix(pathSplitArray[len(pathSplitArray)-1], f.FilePre) {
+		if strings.HasPrefix(path, f.FilePre) {
 			fileArray = append(fileArray, path)
 		}
 		return nil
