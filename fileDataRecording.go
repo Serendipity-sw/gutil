@@ -145,7 +145,7 @@ func (f *FileDataRecording) FileList() *[]string {
 // 几天前
 func (f *FileDataRecording) FileListRemoveOld(days int) {
 	var (
-		timeDate   = time.Now().AddDate(0, 0, 0-days).UnixNano()
+		timeDate   = time.Now().AddDate(0, 0, days).UnixNano()
 		unixNumber int
 		fileName   []string
 	)
