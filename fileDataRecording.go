@@ -143,7 +143,7 @@ func (f *FileDataRecording) FileList() *[]string {
 // 删除过期文件
 // create by gloomy 2017-04-06 22:53:17
 // 几天前
-func (f *FileDataRecording) FileListRemoveOld(days int) {
+func (f *FileDataRecording) RemoveOldFileList(days int) {
 	var (
 		timeDate   = time.Now().AddDate(0, 0, days).UnixNano()
 		unixNumber int
