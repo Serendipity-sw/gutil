@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -137,4 +138,41 @@ func (f *FileDataRecording) FileList() *[]string {
 		return nil
 	})
 	return &fileArray
+}
+
+// 删除过期文件
+// create by gloomy 2017-04-06 22:53:17
+// 几天前
+func (f *FileDataRecording) FileListRemoveOld(days int) {
+	var (
+		timeDate   = time.Now().AddDate(0, 0, 0-days).UnixNano()
+		unixNumber int
+		fileName   []string
+	)
+	filepath.Walk(f.FileProgram, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return nil
+		}
+		if ext := filepath.Ext(path); ext == ".tmp" {
+			return nil
+		}
+		if info.Size() == 0 {
+			os.Remove(path)
+			return nil
+		}
+		if strings.HasPrefix(path, f.FilePre) {
+			fileName = strings.Split(path, "-")
+			if len(fileName) == 3 {
+				unixNumber, err = strconv.Atoi(fileName[1])
+				if err != nil {
+					fmt.Printf("FileListRemoveOld fileProgram: %s path: %s err: %s \n", f.FileProgram, path, err.Error())
+					return nil
+				}
+				if timeDate >= int64(unixNumber) {
+					os.Remove(path)
+				}
+			}
+		}
+		return nil
+	})
 }
