@@ -176,3 +176,47 @@
         ftp修正远程服务器文件名称
         源文件 修正后的文件名称 ftp配置对象
         错误对象
+        
+#### fileDataRecording.go
+
+     文件数据记录对象
+    type FileDataRecording struct {
+    	sync.Mutex                         // 锁
+    	F                         *os.File // 文件对象
+    	FilePre                   string   // 文件开头字符串
+    	Fn                        string   // 文件路径
+    	Bytes                     int      // 文件大小
+    	Seq                       int      // 第几个
+    	FileProgram               string   // 文件存放路径
+    	MaxFileDataRecordingBytes int      // 文件大小
+    }
+    
+    const maxFileDataRecordingBytes = 1000000 // 默认文件大小
+    
+    1. OpenLoadFile
+         打开文件数据记录
+         文件存放目录地址 文件开头字符串 文件大小
+         文件数据对象
+        
+    2. Exit
+         文件退出
+        
+    3. Close
+        文件关闭
+        
+    4. Rotate
+        文件切换
+        
+    5. CreateNewFile
+        创建新文件
+        错误对象
+        
+    6. WriteData
+        写入数据
+        需要写入的数据
+        错误对象
+        
+    7. FileList
+        获取所有完成的文件列表
+        create by gloomy 2017-04-06 13:46:51
+        文件列表

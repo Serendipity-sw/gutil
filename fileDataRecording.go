@@ -71,7 +71,7 @@ func (f *FileDataRecording) Rotate() {
 	f.Unlock()
 }
 
-/// 创建新文件
+// 创建新文件
 // create by gloomy 2017-04-06 10:33:11
 // 错误对象
 func (f *FileDataRecording) CreateNewFile() (err error) {
