@@ -69,6 +69,9 @@
         输出参数: 执行结果对象  错误对象输出
         
 #### servicePIDProcess.go
+
+    const ProgramServicePIDPath = "./programRunPID.pid" // PID文件生成路径
+    当下列方法接收到的传入参数为空时,将使用默认的PID文件路径
     
     1. WritePid
         写PID文件
