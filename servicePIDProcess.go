@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 )
 
 const ProgramServicePIDPath = "./programRunPID.pid" // PID文件生成路径
@@ -22,6 +23,9 @@ const ProgramServicePIDPath = "./programRunPID.pid" // PID文件生成路径
 输入参数：文件路径
 */
 func WritePid(pidFileStr string) {
+	if strings.TrimSpace(pidFileStr) == "" {
+		pidFileStr = ProgramServicePIDPath
+	}
 	pid := os.Getpid()
 	f, err := os.OpenFile(pidFileStr, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
 	if err != nil {
@@ -43,6 +47,9 @@ func WritePid(pidFileStr string) {
 输出参数：bool类型（true： 文件不存在或者进程不存在 false: 进程已存在）
 */
 func CheckPid(pidFileStr string) bool {
+	if strings.TrimSpace(pidFileStr) == "" {
+		pidFileStr = ProgramServicePIDPath
+	}
 	f, err := os.Open(pidFileStr)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -88,6 +95,9 @@ func isProcessExist(pid int) bool {
 输入参数：pid文件路径
 */
 func RmPidFile(pidFileStr string) {
+	if strings.TrimSpace(pidFileStr) == "" {
+		pidFileStr = ProgramServicePIDPath
+	}
 	err := os.Remove(pidFileStr)
 	if err != nil {
 		glog.Error("rmPidFile remove pidFile is error. err: %s \n", err.Error())
