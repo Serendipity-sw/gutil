@@ -13,6 +13,8 @@ import (
 	"strconv"
 )
 
+const ProgramServicePIDPath = "./programRunPID.pid" // PID文件生成路径
+
 /**
 写PID文件
 创建人：邵炜
