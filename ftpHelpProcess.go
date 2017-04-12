@@ -94,3 +94,20 @@ func FtpRenameFile(from, to string, model *FtpHelpStruct) error {
 	}
 	return ftpConntion.Rename(from, to)
 }
+
+// 获取FTP上所有的文件列表
+// create by gloomy 2017-04-12 10:43:25
+// 目录地址
+// 文件列表集 错误对象
+func FtpNameList(pathStr string, model *FtpHelpStruct) ([]string, error) {
+	var (
+		err error
+	)
+	if ftpConntion == nil || ftpConntion.NoOp() != nil {
+		ftpConntion, err = ftpLogin(model)
+		if err != nil {
+			return err
+		}
+	}
+	return ftpConntion.NameList(pathStr)
+}
