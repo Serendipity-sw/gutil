@@ -106,7 +106,7 @@ func FtpNameList(pathStr string, model *FtpHelpStruct) ([]string, error) {
 	if ftpConntion == nil || ftpConntion.NoOp() != nil {
 		ftpConntion, err = ftpLogin(model)
 		if err != nil {
-			return err
+			return []string{}, err
 		}
 	}
 	return ftpConntion.NameList(pathStr)
