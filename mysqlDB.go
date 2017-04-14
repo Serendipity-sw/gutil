@@ -32,19 +32,17 @@ type MySqlDBStruct struct {
 输入参数：数据库对象
 输出对象：数据库连接对象
 */
-func MySqlSQlConntion(model MySqlDBStruct) *sql.DB {
+func MySqlSQlConntion(model MySqlDBStruct) (*sql.DB, error) {
 	dbClause := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&allowAllFiles=true", model.DbUser, model.DbPass, model.DbHost, model.DbPort, model.DbName)
 	dbs, err := sql.Open("mysql", dbClause)
 	if err != nil {
-		glog.Error("mysql can't connection dbClause: %s err: %s \n", dbClause, err.Error())
-		return nil
+		return nil, err
 	}
 	err = dbs.Ping()
 	if err != nil {
-		glog.Error("mysql can't ping dbClause: %s err: %s \n", dbClause, err.Error())
-		return nil
+		return nil, err
 	}
-	return dbs
+	return dbs, err
 }
 
 /**
@@ -74,9 +72,7 @@ func MySqlSelect(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inter
 		row *sql.Rows
 		err error
 	)
-	err = dbs.Ping()
-	if err != nil {
-		glog.Error("mysql can't ping %s \n", err.Error())
+	if dbs == nil || dbs.Ping() != nil {
 		MySqlClose(dbs)
 		dbs = MySqlSQlConntion(model)
 	}
@@ -86,7 +82,6 @@ func MySqlSelect(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inter
 		row, err = dbs.Query(sqlStr, param...)
 	}
 	if err != nil {
-		glog.Error("mysql query can't select sql: %s err: %s \n", sqlStr, err.Error())
 		return nil, err
 	}
 	return row, nil
@@ -105,11 +100,7 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 		exec sql.Result
 		err  error
 	)
-
-	err = dbs.Ping()
-
-	if err != nil {
-		glog.Error("mysql can't ping %s \n", err.Error())
+	if dbs == nil || dbs.Ping() != nil {
 		MySqlClose(dbs)
 		dbs = MySqlSQlConntion(model)
 	}
@@ -121,7 +112,6 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 	}
 
 	if err != nil {
-		glog.Error("mysql exec can't carried out sql: %s err: %s \n", sqlStr, err.Error())
 		return nil, err
 	}
 
