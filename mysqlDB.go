@@ -9,7 +9,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/smtc/glog"
 )
 
 /**
@@ -74,7 +73,10 @@ func MySqlSelect(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inter
 	)
 	if dbs == nil || dbs.Ping() != nil {
 		MySqlClose(dbs)
-		dbs = MySqlSQlConntion(model)
+		dbs, err = MySqlSQlConntion(model)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if param == nil {
 		row, err = dbs.Query(sqlStr)
@@ -102,7 +104,10 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 	)
 	if dbs == nil || dbs.Ping() != nil {
 		MySqlClose(dbs)
-		dbs = MySqlSQlConntion(model)
+		dbs, err = MySqlSQlConntion(model)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if param == nil {
