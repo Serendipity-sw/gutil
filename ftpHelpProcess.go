@@ -26,7 +26,7 @@ const ftpTimeOut = 60 * time.Minute
 // create by gloomy 2017-4-1 17:36:11
 // FTP配置实体 文件内容 创建目标服务器的文件名
 // 错误对象
-func FtpFileStor(model *FtpHelpStruct, ftpConntion *ftp.ServerConn, contentByte *[]byte, createFilePath string) (*ftp.ServerConn, error) {
+func FtpFileStor(model *FtpHelpStruct, ftpConntion *ftp.ServerConn, contentByte *[]byte, createFilePath string) error {
 	var (
 		err error
 	)
@@ -36,7 +36,7 @@ func FtpFileStor(model *FtpHelpStruct, ftpConntion *ftp.ServerConn, contentByte 
 			return err
 		}
 	}
-	return ftpConntion, ftpConntion.Stor(createFilePath, bytes.NewReader(*contentByte))
+	return ftpConntion.Stor(createFilePath, bytes.NewReader(*contentByte))
 }
 
 // FTP登录
@@ -66,7 +66,7 @@ func ftpLogin(model *FtpHelpStruct) (*ftp.ServerConn, error) {
 // create by gloomy 2017-04-02 01:08:15
 // 文件名 ftp配置对象
 // 错误对象
-func FtpRemoveFile(filePathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) (*ftp.ServerConn, error) {
+func FtpRemoveFile(filePathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) error {
 	var (
 		err error
 	)
@@ -76,14 +76,14 @@ func FtpRemoveFile(filePathStr string, ftpConntion *ftp.ServerConn, model *FtpHe
 			return err
 		}
 	}
-	return ftpConntion, ftpConntion.Delete(filePathStr)
+	return ftpConntion.Delete(filePathStr)
 }
 
 // ftp修正远程服务器文件名称
 // create by gloomy 2017-04-04 21:26:48
 // 源文件 修正后的文件名称 ftp配置对象
 // 错误对象
-func FtpRenameFile(from, to string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) (*ftp.ServerConn, error) {
+func FtpRenameFile(from, to string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) error {
 	var (
 		err error
 	)
@@ -93,14 +93,14 @@ func FtpRenameFile(from, to string, ftpConntion *ftp.ServerConn, model *FtpHelpS
 			return err
 		}
 	}
-	return ftpConntion, ftpConntion.Rename(from, to)
+	return ftpConntion.Rename(from, to)
 }
 
 // 获取FTP上所有的文件列表
 // create by gloomy 2017-04-12 10:43:25
 // 目录地址
 // 文件列表集 错误对象
-func FtpNameList(pathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) (*ftp.ServerConn, []string, error) {
+func FtpNameList(pathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) ([]string, error) {
 	var (
 		err error
 	)
@@ -110,7 +110,7 @@ func FtpNameList(pathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStru
 			return []string{}, err
 		}
 	}
-	return ftpConntion, ftpConntion.NameList(pathStr)
+	return ftpConntion.NameList(pathStr)
 }
 
 // ftp退出
