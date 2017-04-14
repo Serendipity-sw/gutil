@@ -54,6 +54,9 @@ func MySqlSQlConntion(model MySqlDBStruct) *sql.DB {
 输入参数：数据库连接对象
 */
 func MySqlClose(dbs *sql.DB) {
+	if dbs == nil {
+		return
+	}
 	dbs.Close()
 }
 
