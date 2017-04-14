@@ -38,6 +38,9 @@ func GpSqlConntion(model GpDBStruct) (*sql.DB, error) {
 // GP数据库关闭
 // create by gloomy 2017-3-30 15:39:10
 func GpSqlClose(db *sql.DB) {
+	if db == nil {
+		return
+	}
 	db.Close()
 }
 
@@ -50,8 +53,7 @@ func GpSqlSelect(dbs *sql.DB, model GpDBStruct, sqlStr string, param ...interfac
 		row *sql.Rows
 		err error
 	)
-	err = dbs.Ping()
-	if err != nil {
+	if dbs == nil || dbs.Ping() != nil {
 		GpSqlClose(dbs)
 		dbs, err = GpSqlConntion(model)
 		if err != nil {
@@ -82,10 +84,7 @@ func GpSqlExec(dbs *sql.DB, model GpDBStruct, sqlStr string, param ...interface{
 		exec sql.Result
 		err  error
 	)
-
-	err = dbs.Ping()
-
-	if err != nil {
+	if dbs == nil || dbs.Ping() != nil {
 		GpSqlClose(dbs)
 		dbs, err = GpSqlConntion(model)
 		if err != nil {
