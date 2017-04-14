@@ -2,7 +2,7 @@
 redis帮助类
 create by gloomysw 2017-3-24 14:11:284
 */
-package common
+package gutil
 
 import (
 	"fmt"

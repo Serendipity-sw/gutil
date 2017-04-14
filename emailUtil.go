@@ -1,6 +1,6 @@
 // email 类库
 // create by gloomy 2017-04-12 11:16:21
-package common
+package gutil
 
 import (
 	"fmt"

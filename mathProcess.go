@@ -2,7 +2,7 @@
 随机数处理
 create by gloomy 2017-03-29 22:11:23
 */
-package common
+package gutil
 
 import "math"
 

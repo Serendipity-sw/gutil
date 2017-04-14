@@ -2,7 +2,7 @@
 gp数据库连接
 create by gloomy 2017-3-30 15:24:11
 */
-package common
+package gutil
 
 import (
 	"database/sql"

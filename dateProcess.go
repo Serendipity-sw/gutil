@@ -3,7 +3,7 @@
 创建人：邵炜
 创建时间：2017年03月21日20:53:46
 */
-package common
+package gutil
 
 import (
 	"strings"

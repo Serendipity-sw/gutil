@@ -4,7 +4,7 @@
 创建人:邵炜
 创建时间:2017年2月8日18:11:29
 */
-package common
+package gutil
 
 import (
 	"bufio"

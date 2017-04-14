@@ -3,7 +3,7 @@
 创建人：邵炜
 创建时间：2017年03月11日11:03:55
 */
-package common
+package gutil
 
 import (
 	"fmt"

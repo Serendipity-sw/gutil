@@ -3,7 +3,7 @@ mySql数据库组件类
 创建人：邵炜
 创建时间：2017年03月11日15:55:14
 */
-package common
+package gutil
 
 import (
 	"database/sql"

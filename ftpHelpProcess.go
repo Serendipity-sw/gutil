@@ -1,6 +1,6 @@
 // FTP工具类
 // create by gloomy 2017-4-1 17:32:06
-package common
+package gutil
 
 import (
 	"bytes"

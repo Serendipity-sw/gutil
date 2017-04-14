@@ -2,7 +2,7 @@
 AES加解密类库
 create by gloomy 2017-03-29 23:32:31
 */
-package common
+package gutil
 
 import (
 	"bytes"

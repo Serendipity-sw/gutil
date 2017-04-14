@@ -4,7 +4,7 @@
 创建人:邵炜
 创建时间:2017年2月8日18:50:51
 */
-package common
+package gutil
 
 /**
 构建三元运算

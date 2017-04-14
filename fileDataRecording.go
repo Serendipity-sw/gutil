@@ -1,6 +1,6 @@
 // 文件数据记录类
 // create by gloomy 2017-04-06 10:11:35
-package common
+package gutil
 
 import (
 	"fmt"
