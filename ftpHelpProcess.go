@@ -24,6 +24,8 @@ var (
 	ftpConntion *ftp.ServerConn
 )
 
+const ftpTimeOut = 60 * time.Minute
+
 // FTP文件传输
 // create by gloomy 2017-4-1 17:36:11
 // FTP配置实体 文件内容 创建目标服务器的文件名
@@ -46,6 +48,9 @@ func FtpFileStor(model *FtpHelpStruct, contentByte *[]byte, createFilePath strin
 // 输入参数 FTP配置实体
 // 输出参数 FTP连接对象 错误对象
 func ftpLogin(model *FtpHelpStruct) (*ftp.ServerConn, error) {
+	if model.TimeOut <= 0 {
+		model.TimeOut = ftpTimeOut
+	}
 	c, err := ftp.DialTimeout(fmt.Sprintf("%s:%d", model.IpAddr, model.Port), model.TimeOut)
 	if err != nil {
 		return nil, err
