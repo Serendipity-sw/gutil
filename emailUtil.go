@@ -13,7 +13,9 @@ import (
 func SendEmail(account, passWord, smtpUrl, smtpUrlPort, emailTitle string, emailContent *[]byte, toEmailUser []string) error {
 	auth := smtp.PlainAuth("", account, passWord, smtpUrl)
 	to := toEmailUser
-	msg := []byte(fmt.Sprintf("To: %s \r\n Subject: %s \r\n Content-Type: text/plain; charset=UTF-8\r\n\r\n", strings.Join(toEmailUser, ";"), emailTitle))
+	msg := []byte(fmt.Sprintf("To: %s\r\n"+
+		"Subject: %s\r\n"+
+		"Content-Type: text/plain; charset=UTF-8"+"\r\n\r\n", strings.Join(toEmailUser, ";"), emailTitle))
 	msg = append(msg, (*emailContent)...)
 	return smtp.SendMail(fmt.Sprintf("%s:%s", smtpUrl, smtpUrlPort), auth, account, to, msg)
 }
