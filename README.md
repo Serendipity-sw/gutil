@@ -47,6 +47,8 @@
         	DbPort int    //数据库端口
         	DbPass string //数据库密码
         	DbName string //数据库库名
+	        MaxOpenConns int    // 用于设置最大打开的连接数，默认值为0表示不限制
+	        MaxIdleConns int    // 用于设置闲置的连接数
         }
     
     2. MySqlSQlConntion
@@ -130,6 +132,8 @@
     	DbPort int    //数据库端口
     	DbPass string //数据库密码
     	DbName string //数据库库名
+	    MaxOpenConns int    // 用于设置最大打开的连接数，默认值为0表示不限制
+	    MaxIdleConns int    // 用于设置闲置的连接数
     }
     
     其余同mysql类
