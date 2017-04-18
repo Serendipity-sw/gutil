@@ -39,7 +39,7 @@ func ReadExcel(excelFilePath string) (*map[string][][]string, error) {
 
 // excel保存
 // create by gloomy 2017-4-18 09:44:39
-func ExcelSave(saveContent *map[string][]string, saveFilePath string) error {
+func ExcelSave(saveContent *map[string][][]string, saveFilePath string) error {
 	var (
 		file  *xlsx.File
 		sheet *xlsx.Sheet
@@ -51,16 +51,18 @@ func ExcelSave(saveContent *map[string][]string, saveFilePath string) error {
 		return errors.New("send data length is 0!")
 	}
 	file = xlsx.NewFile()
-	for sheetName, values := range *saveContent {
+	for sheetName, rows := range *saveContent {
 		sheet, err = file.AddSheet(sheetName)
 		if err != nil {
 			return err
 		}
-		if len(values) != 0 {
-			row = sheet.AddRow()
-			for _, columnValue := range values {
-				cell = row.AddCell()
-				cell.Value = columnValue
+		if len(rows) != 0 {
+			for _, contentArray := range rows {
+				row = sheet.AddRow()
+				for _, columnValue := range contentArray {
+					cell = row.AddCell()
+					cell.Value = columnValue
+				}
 			}
 		}
 	}
