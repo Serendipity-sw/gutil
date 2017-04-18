@@ -17,11 +17,13 @@ import (
 创建时间：2017年03月11日16:01:20
 */
 type MySqlDBStruct struct {
-	DbUser string //数据库用户名
-	DbHost string //数据库地址
-	DbPort int    //数据库端口
-	DbPass string //数据库密码
-	DbName string //数据库库名
+	DbUser       string //数据库用户名
+	DbHost       string //数据库地址
+	DbPort       int    //数据库端口
+	DbPass       string //数据库密码
+	DbName       string //数据库库名
+	MaxOpenConns int    // 用于设置最大打开的连接数，默认值为0表示不限制
+	MaxIdleConns int    // 用于设置闲置的连接数
 }
 
 /**
@@ -37,6 +39,8 @@ func MySqlSQlConntion(model MySqlDBStruct) (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	dbs.SetMaxOpenConns(model.MaxOpenConns)
+	dbs.SetMaxIdleConns(model.MaxIdleConns)
 	err = dbs.Ping()
 	if err != nil {
 		return nil, err

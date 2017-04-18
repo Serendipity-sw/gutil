@@ -13,11 +13,13 @@ import (
 // GP数据库连接对象
 // create by gloomy 2017-3-30 15:27:26
 type GpDBStruct struct {
-	DbUser string //数据库用户名
-	DbHost string //数据库地址
-	DbPort int    //数据库端口
-	DbPass string //数据库密码
-	DbName string //数据库库名
+	DbUser       string //数据库用户名
+	DbHost       string //数据库地址
+	DbPort       int    //数据库端口
+	DbPass       string //数据库密码
+	DbName       string //数据库库名
+	MaxOpenConns int    // 用于设置最大打开的连接数，默认值为0表示不限制
+	MaxIdleConns int    // 用于设置闲置的连接数
 }
 
 // GP数据库连接
@@ -28,6 +30,8 @@ func GpSqlConntion(model GpDBStruct) (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("gp can't connection gpClause: %s err: %s ", dbClause, err.Error())
 	}
+	db.SetMaxOpenConns(model.MaxOpenConns)
+	db.SetMaxIdleConns(model.MaxIdleConns)
 	err = db.Ping()
 	if err != nil {
 		return nil, fmt.Errorf("gp can't ping dbClause: %s err: %s ", dbClause, err.Error())
