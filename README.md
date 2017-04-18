@@ -226,3 +226,12 @@
     8. RemoveOldFileList
         删除过期文件
         几天前
+        
+#### excelUtil.go
+
+    1. ReadExcel
+       excel数据获取
+       sheet名称 数据内容 错误对象
+       
+    2. ExcelSave
+       excel保存
