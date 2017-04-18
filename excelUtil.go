@@ -3,6 +3,7 @@
 package gutil
 
 import (
+	"errors"
 	"fmt"
 	"github.com/tealeg/xlsx"
 )
@@ -36,7 +37,7 @@ func ReadExcel(excelFilePath string) (*map[string][]string, error) {
 
 // excel保存
 // create by gloomy 2017-4-18 09:44:39
-func ExcelSave(sheetName string, columnName *[]string, saveContent *[][]string, saveFilePath string) error {
+func ExcelSave(saveContent *map[string][]string, saveFilePath string) error {
 	var (
 		file  *xlsx.File
 		sheet *xlsx.Sheet
@@ -44,27 +45,20 @@ func ExcelSave(sheetName string, columnName *[]string, saveContent *[][]string, 
 		cell  *xlsx.Cell
 		err   error
 	)
+	if len(*saveContent) == 0 {
+		return errors.New("send data length is 0!")
+	}
 	file = xlsx.NewFile()
-	sheet, err = file.AddSheet(sheetName)
-	if err != nil {
-		return err
-	}
-	if columnName != nil && len(*columnName) != 0 {
-		row = sheet.AddRow()
-		for _, value := range *columnName {
-			cell = row.AddCell()
-			cell.Value = value
+	for sheetName, values := range *saveContent {
+		sheet, err = file.AddSheet(sheetName)
+		if err != nil {
+			return err
 		}
-	}
-	if saveContent != nil && len(*saveContent) != 0 {
-		for _, rows := range *saveContent {
-			if len(rows) == 0 {
-				continue
-			}
+		if len(values) != 0 {
 			row = sheet.AddRow()
-			for _, value := range rows {
+			for _, columnValue := range values {
 				cell = row.AddCell()
-				cell.Value = value
+				cell.Value = columnValue
 			}
 		}
 	}
