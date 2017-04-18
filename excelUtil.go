@@ -17,9 +17,8 @@ func ReadExcel(excelFilePath string) (*map[string][]string, error) {
 		return nil, err
 	}
 	var (
-		excelData   map[string][]string
+		excelData   map[string][]string = make(map[string][]string)
 		columnValue string
-		ok          bool
 	)
 	for _, sheet := range xlFile.Sheets {
 		for _, row := range sheet.Rows {
@@ -27,11 +26,6 @@ func ReadExcel(excelFilePath string) (*map[string][]string, error) {
 				columnValue, err = cell.String()
 				if err != nil {
 					fmt.Println("ReadExcel ", err.Error())
-					continue
-				}
-				_, ok = excelData[sheet.Name]
-				if !ok {
-					excelData[sheet.Name] = []string{columnValue}
 					continue
 				}
 				excelData[sheet.Name] = append(excelData[sheet.Name], columnValue)
