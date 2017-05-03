@@ -77,11 +77,6 @@ func WatchFile(ch chan struct{}, filePathStr string, deleteFileCallBack, modifyF
 // 创建时间:2016年9月5日14:58:13
 // 输入参数: 文件路劲
 func watchFileAutoMated(filePath string, callBack func(string)) {
-	defer func() {
-		autoMatedTaskLock.Lock()
-		delete(autoMatedTaskFile, filePath)
-		autoMatedTaskLock.Unlock()
-	}()
 	tmrIntal := 30 * time.Second
 	fileSaveTmr := time.NewTimer(tmrIntal)
 	fileState, err := os.Stat(filePath)
@@ -93,6 +88,12 @@ func watchFileAutoMated(filePath string, callBack func(string)) {
 		size   = fileState.Size()
 		number int64
 	)
+	defer func() {
+		fileSaveTmr.Stop()
+		autoMatedTaskLock.Lock()
+		delete(autoMatedTaskFile, filePath)
+		autoMatedTaskLock.Unlock()
+	}()
 	<-fileSaveTmr.C
 	for {
 		fileState, err = os.Stat(filePath)
