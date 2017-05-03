@@ -72,12 +72,10 @@ func WatchFile(ch chan struct{}, filePathStr string, deleteFileCallBack, modifyF
 	return watcher, err
 }
 
-/**
-自动化创建任务 需要监控的文件,判断文件是否上传完毕
-创建人:邵炜
-创建时间:2016年9月5日14:58:13
-输入参数: 文件路劲
-*/
+// 自动化创建任务 需要监控的文件,判断文件是否上传完毕
+// 创建人:邵炜
+// 创建时间:2016年9月5日14:58:13
+// 输入参数: 文件路劲
 func watchFileAutoMated(filePath string, callBack func(string)) {
 	defer func() {
 		autoMatedTaskLock.Lock()
