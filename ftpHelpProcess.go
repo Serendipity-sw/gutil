@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/jlaffaye/ftp"
+	"strings"
 	"time"
 )
 
@@ -102,15 +103,42 @@ func FtpRenameFile(from, to string, ftpConntion *ftp.ServerConn, model *FtpHelpS
 // 文件列表集 错误对象
 func FtpNameList(pathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct) ([]string, error) {
 	var (
-		err error
+		nameList []string
+	)
+	err := ftpList(pathStr, ftpConntion, model, &nameList)
+	return nameList, err
+}
+
+func ftpList(pathStr string, ftpConntion *ftp.ServerConn, model *FtpHelpStruct, nameListIn *[]string) error {
+	var (
+		err     error
+		pathDir string
 	)
 	if ftpConntion == nil || ftpConntion.NoOp() != nil {
 		ftpConntion, err = ftpLogin(model)
 		if err != nil {
-			return []string{}, err
+			return err
 		}
 	}
-	return ftpConntion.NameList(pathStr)
+	entryArray, err := ftpConntion.List(pathStr)
+	if err != nil {
+		return err
+	}
+	if strings.TrimSpace(pathStr) != "" && !strings.HasSuffix(pathStr, "/") {
+		pathStr += "/"
+	}
+	for _, item := range entryArray {
+		pathDir = fmt.Sprintf("%s%s", pathStr, item.Name)
+		if item.Type == 0 {
+			*nameListIn = append(*nameListIn, pathDir)
+		} else {
+			err = ftpList(pathDir, ftpConntion, model, nameListIn)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
 
 // ftp退出
