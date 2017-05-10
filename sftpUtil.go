@@ -5,8 +5,8 @@ package gutil
 import (
 	"errors"
 	"github.com/pkg/sftp"
-	"github.com/swgloomy/crypto/ssh"
-	"github.com/swgloomy/crypto/ssh/agent"
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/agent"
 	"net"
 	"os"
 )
@@ -55,12 +55,12 @@ func SftpClose(sftpClient *sftp.Client, sshClient *ssh.Client) error {
 	)
 	err := sftpClient.Close()
 	if err != nil {
-		errs += errors.New(err.Error())
+		errs += err.Error()
 		boNumber++
 	}
 	err = sshClient.Close()
 	if err != nil {
-		errs += errors.New(err.Error())
+		errs += err.Error()
 		return errors.New(errs)
 	}
 	if boNumber > 0 {
