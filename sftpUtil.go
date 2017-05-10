@@ -5,8 +5,8 @@ package gutil
 import (
 	"errors"
 	"github.com/pkg/sftp"
-	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/agent"
+	"github.com/swgloomy/crypto/ssh"
+	"github.com/swgloomy/crypto/ssh/agent"
 	"net"
 	"os"
 )
