@@ -1,4 +1,4 @@
-# go-common
+# gutil
     go web端的公共类
     
 ## 文档
@@ -239,3 +239,20 @@
        
     2. ExcelSave
        excel保存
+       
+#### sftpUtil.go
+
+    // sftp配置
+    type SftpConfigStruct struct {
+    	Account      string // 登录用户名
+    	Password     string // 登录密码
+    	Port         int    // 服务器端口
+    	ConntionSize int    // MaxPacket sets the maximum size of the payload
+    	Addr         string // 连接地址
+    }
+    
+    1. SftpClose 
+        sftp 关闭
+        
+    2. SftpReadDir
+        sftp读取文件夹内容
