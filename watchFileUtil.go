@@ -18,7 +18,7 @@ var (
 
 // 文件监控
 // create by gloomy 2017-5-3 11:42:09
-func WatchFile(ch chan struct{}, filePathStr string, deleteFileCallBack, modifyFileCallBack, renameFileCallBack, createFileCallBack func(string)) (*fsnotify.Watcher, error) {
+func WatchFile(filePathStr string, deleteFileCallBack, modifyFileCallBack, renameFileCallBack, createFileCallBack func(string)) (*fsnotify.Watcher, error) {
 	fi, err := os.Stat(filePathStr)
 	if err != nil {
 		return nil, err
