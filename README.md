@@ -1,5 +1,7 @@
 # gutil
-    go web端的公共类
+    go 公共类
+    golang.org/x/crypto 无法下载,可以在下面地中获取所需要的crypto包.并存放到对应的golang.org文件夹的x目录下
+    https://github.com/swgloomy/crypto.git
     
 ## 文档
     
