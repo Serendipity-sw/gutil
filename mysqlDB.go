@@ -126,3 +126,56 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 
 	return exec, nil
 }
+
+// 查询所有字段值
+// create by gloomy 2017-5-12 16:38:58
+func MysqlSelectUnknowColumn(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...interface{}) (*[]string, *[][]string, error) {
+
+	var (
+		row             *sql.Rows
+		err             error
+		columnNameArray []string
+		dataList        [][]string
+	)
+	if dbs == nil || dbs.Ping() != nil {
+		MySqlClose(dbs)
+		dbs, err = MySqlSQlConntion(model)
+		if err != nil {
+			return nil, nil, err
+		}
+	}
+	if param == nil {
+		row, err = dbs.Query(sqlStr)
+	} else {
+		row, err = dbs.Query(sqlStr, param...)
+	}
+	if err != nil {
+		return nil, nil, err
+	}
+	defer row.Close()
+	columnNameArray, err = row.Columns()
+	if err != nil {
+		return nil, nil, err
+	}
+	values := make([]sql.RawBytes, len(columnNameArray))
+	scanArgs := make([]interface{}, len(values))
+	for i := range values {
+		scanArgs[i] = &values[i]
+	}
+	for row.Next() {
+		var rowData []string
+		err = row.Scan(scanArgs...)
+		if err != nil {
+			continue
+		}
+		for _, col := range values {
+			if col == nil {
+				rowData = append(rowData, "")
+			} else {
+				rowData = append(rowData, string(col))
+			}
+		}
+		dataList = append(dataList, rowData)
+	}
+	return &columnNameArray, &dataList, nil
+}

@@ -72,6 +72,10 @@
         输入参数: dbs数据库连接对象 model数据库对象 sqlStr 要执行的sql语句  param执行SQL的语句参数化传递
         输出参数: 执行结果对象  错误对象输出
         
+    6. MysqlSelectUnknowColumn
+        查询所有字段值
+        字段名称 字段值数组 错误对象
+        
 #### servicePIDProcess.go
 
     const ProgramServicePIDPath = "./programRunPID.pid" // PID文件生成路径
