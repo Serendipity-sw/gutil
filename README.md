@@ -262,3 +262,8 @@
         
     2. SftpReadDir
         sftp读取文件夹内容
+        
+#### XML帮助类
+
+    1.XmlContentReplace
+        生成xml文件修正xml节点内容
