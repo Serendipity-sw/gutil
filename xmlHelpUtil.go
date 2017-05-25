@@ -5,11 +5,12 @@ import "strings"
 var ReplaceXmlStrArray map[string]string = make(map[string]string)
 
 func init() {
-	ReplaceXmlStrArray = append("&", "&amp;")
-	ReplaceXmlStrArray = append("\"", "&quot;")
-	ReplaceXmlStrArray = append("<", "&lt")
-	ReplaceXmlStrArray = append(">", "&gt")
-	ReplaceXmlStrArray = append("'", "&apos;")
+
+	ReplaceXmlStrArray["&"] = "&amp;"
+	ReplaceXmlStrArray["\""] = "&quot;"
+	ReplaceXmlStrArray["<"] = "&lt"
+	ReplaceXmlStrArray[">"] = "&gt"
+	ReplaceXmlStrArray["'"] = "&apos;"
 }
 
 // 生成xml文件修正xml节点内容
