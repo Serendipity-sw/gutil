@@ -149,6 +149,7 @@
         GpSqlClose GP数据库关闭
         GpSqlSelect 查询方法
         GpSqlExec 数据库运行方法
+        GPSelectUnknowColumn 查询所有字段值
         
 #### mathProcess.go
     
