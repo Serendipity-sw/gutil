@@ -37,6 +37,7 @@ func WatchFile(filePathStr string, deleteFileCallBack, modifyFileCallBack, renam
 				if ev == nil {
 					continue
 				}
+				fmt.Printf("WatchFile file: %v \n", *ev)
 				if ev.IsDelete() && deleteFileCallBack != nil {
 					deleteFileCallBack(ev.Name)
 				}
