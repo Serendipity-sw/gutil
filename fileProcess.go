@@ -8,6 +8,7 @@ package gutil
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -120,8 +121,43 @@ func ReadFileByLine(filePath string) (*[]string, error) {
 	return &contentLine, nil
 }
 
+// 读取文件行数
+// create by gloomy 2017-6-2 14:00:32
+func ReadFileLineNumber(filePathStr string) (int, error) {
+	var (
+		readAll           = false
+		readByte          []byte
+		line              []byte
+		err               error
+		contentLineNumber = 0
+	)
+	fs, err := os.Open(filePathStr)
+	if err != nil {
+		return contentLineNumber, err
+	}
+	defer fs.Close()
+	buf := bufio.NewReader(fs)
+	for err != io.EOF {
+		if err != nil {
+		}
+		if readAll {
+			readByte, readAll, err = buf.ReadLine()
+			line = append(line, readByte...)
+		} else {
+			readByte, readAll, err = buf.ReadLine()
+			line = append(line, readByte...)
+			if len(strings.TrimSpace(string(line))) == 0 {
+				continue
+			}
+			contentLineNumber++
+			line = line[:0]
+		}
+	}
+	return contentLineNumber, nil
+}
+
 /**
-根据条件读写文件
+根据条件读文件
 创建人:邵炜
 创建时间:2017年3月22日11:03:31
 输入参数:文件路径 文件写入对象 条件平判断方法
