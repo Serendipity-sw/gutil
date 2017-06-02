@@ -8,7 +8,6 @@ package gutil
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"os"
 	"strings"
