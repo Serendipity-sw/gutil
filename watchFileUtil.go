@@ -5,8 +5,10 @@ package gutil
 import (
 	"errors"
 	"fmt"
+	"github.com/gobwas/glob"
 	"github.com/howeyc/fsnotify"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -18,7 +20,7 @@ var (
 
 // 文件监控
 // create by gloomy 2017-5-3 11:42:09
-func WatchFile(filePathStr string, deleteFileCallBack, modifyFileCallBack, renameFileCallBack, createFileCallBack func(string)) (*fsnotify.Watcher, error) {
+func WatchFile(filePathStr, matchFileName string, deleteFileCallBack, modifyFileCallBack, renameFileCallBack, createFileCallBack func(string)) (*fsnotify.Watcher, error) {
 	fi, err := os.Stat(filePathStr)
 	if err != nil {
 		return nil, err
@@ -37,7 +39,12 @@ func WatchFile(filePathStr string, deleteFileCallBack, modifyFileCallBack, renam
 				if ev == nil {
 					continue
 				}
-				fmt.Printf("WatchFile file: %v \n", *ev)
+				if strings.TrimSpace(matchFileName) != "" {
+					if glob.MustCompile(matchFileName).Match(ev.Name) {
+						fmt.Printf("WatchFile file is not match! matchFileName: %s fileName: %s \n", matchFileName, ev.Name)
+						continue
+					}
+				}
 				if ev.IsDelete() && deleteFileCallBack != nil {
 					deleteFileCallBack(ev.Name)
 				}
