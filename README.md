@@ -34,10 +34,15 @@
         输入参数:文件路径 是否追加
         输出参数:文件对象 错误对象
         
-    5. RWFileByWhere
+    6. RWFileByWhere
         根据条件读写文件
         输入参数:文件路径 文件写入对象 条件平判断方法
         输出参数:错误对象
+        
+    7. ReadFileLineNumber
+        读取文件行数
+            文件路径
+            输出行数与错误对象
         
 #### mysqlDB.go
 
