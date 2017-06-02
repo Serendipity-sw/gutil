@@ -270,7 +270,7 @@
         生成xml文件修正xml节点内容
         
 #### watchFileUtil.go
-
+    如文件上传完成,统一使用文件修改回调方法.watchFile方法会保证文件上传完毕进行回调
     1.WatchFile
         文件夹监控方法
             监控文件夹路径
