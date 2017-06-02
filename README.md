@@ -268,3 +268,14 @@
 
     1.XmlContentReplace
         生成xml文件修正xml节点内容
+        
+#### watchFileUtil.go
+
+    1.WatchFile
+        文件夹监控方法
+            监控文件夹路径
+            匹配字段(例: match*  则匹配任何match开头的. *为全匹配)
+            删除文件回调方法
+            文件修改回调方法
+            文件改名回调方法
+            文件创建回调方法
