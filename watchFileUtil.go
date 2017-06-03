@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	autoMatedTaskLock sync.RWMutex
-	autoMatedTaskFile map[string]int = make(map[string]int)
+	AutoMatedTaskLock sync.RWMutex
+	AutoMatedTaskFile map[string]int = make(map[string]int)
 )
 
 // 文件监控
@@ -55,14 +55,14 @@ func WatchFile(filePathStr, matchFileName string, deleteFileCallBack, modifyFile
 					createFileCallBack(ev.Name)
 				}
 				if ev.IsModify() && modifyFileCallBack != nil {
-					autoMatedTaskLock.RLock()
-					_, ok := autoMatedTaskFile[ev.Name]
-					autoMatedTaskLock.RUnlock()
+					AutoMatedTaskLock.RLock()
+					_, ok := AutoMatedTaskFile[ev.Name]
+					AutoMatedTaskLock.RUnlock()
 					if !ok {
-						autoMatedTaskLock.Lock()
-						autoMatedTaskFile[ev.Name] = 0
-						autoMatedTaskLock.Unlock()
-						go watchFileAutoMated(ev.Name, modifyFileCallBack)
+						AutoMatedTaskLock.Lock()
+						AutoMatedTaskFile[ev.Name] = 0
+						AutoMatedTaskLock.Unlock()
+						go WatchFileAutoMated(ev.Name, modifyFileCallBack)
 					}
 				}
 			case err := <-watcher.Error:
@@ -84,7 +84,7 @@ func WatchFile(filePathStr, matchFileName string, deleteFileCallBack, modifyFile
 // 创建人:邵炜
 // 创建时间:2016年9月5日14:58:13
 // 输入参数: 文件路劲
-func watchFileAutoMated(filePath string, callBack func(string)) {
+func WatchFileAutoMated(filePath string, callBack func(string)) {
 	tmrIntal := 30 * time.Second
 	fileSaveTmr := time.NewTimer(tmrIntal)
 	fileState, err := os.Stat(filePath)
@@ -98,9 +98,9 @@ func watchFileAutoMated(filePath string, callBack func(string)) {
 	)
 	defer func() {
 		fileSaveTmr.Stop()
-		autoMatedTaskLock.Lock()
-		delete(autoMatedTaskFile, filePath)
-		autoMatedTaskLock.Unlock()
+		AutoMatedTaskLock.Lock()
+		delete(AutoMatedTaskFile, filePath)
+		AutoMatedTaskLock.Unlock()
 	}()
 	<-fileSaveTmr.C
 	for {
