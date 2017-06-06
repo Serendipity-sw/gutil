@@ -46,13 +46,37 @@ func WatchFile(filePathStr, matchFileName string, deleteFileCallBack, modifyFile
 					}
 				}
 				if ev.IsDelete() && deleteFileCallBack != nil {
-					deleteFileCallBack(ev.Name)
+					AutoMatedTaskLock.RLock()
+					_, ok := AutoMatedTaskFile[ev.Name]
+					AutoMatedTaskLock.RUnlock()
+					if !ok {
+						AutoMatedTaskLock.Lock()
+						AutoMatedTaskFile[ev.Name] = 0
+						AutoMatedTaskLock.Unlock()
+						go WatchFileAutoMated(ev.Name, deleteFileCallBack)
+					}
 				}
 				if ev.IsRename() && renameFileCallBack != nil {
-					renameFileCallBack(ev.Name)
+					AutoMatedTaskLock.RLock()
+					_, ok := AutoMatedTaskFile[ev.Name]
+					AutoMatedTaskLock.RUnlock()
+					if !ok {
+						AutoMatedTaskLock.Lock()
+						AutoMatedTaskFile[ev.Name] = 0
+						AutoMatedTaskLock.Unlock()
+						go WatchFileAutoMated(ev.Name, renameFileCallBack)
+					}
 				}
 				if ev.IsCreate() && createFileCallBack != nil {
-					createFileCallBack(ev.Name)
+					AutoMatedTaskLock.RLock()
+					_, ok := AutoMatedTaskFile[ev.Name]
+					AutoMatedTaskLock.RUnlock()
+					if !ok {
+						AutoMatedTaskLock.Lock()
+						AutoMatedTaskFile[ev.Name] = 0
+						AutoMatedTaskLock.Unlock()
+						go WatchFileAutoMated(ev.Name, createFileCallBack)
+					}
 				}
 				if ev.IsModify() && modifyFileCallBack != nil {
 					AutoMatedTaskLock.RLock()
