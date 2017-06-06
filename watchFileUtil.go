@@ -89,7 +89,7 @@ func WatchFileAutoMated(filePath string, callBack func(string)) {
 	fileSaveTmr := time.NewTimer(tmrIntal)
 	fileState, err := os.Stat(filePath)
 	if err != nil {
-		fmt.Sprintf("watchFileAutoMated can't load file! path: %s err: %s \n", filePath, err.Error())
+		fmt.Printf("watchFileAutoMated can't load file! path: %s err: %s \n", filePath, err.Error())
 		return
 	}
 	var (
@@ -106,7 +106,7 @@ func WatchFileAutoMated(filePath string, callBack func(string)) {
 	for {
 		fileState, err = os.Stat(filePath)
 		if err != nil {
-			fmt.Sprintf("watchFileAutoMated can't load file! path: %s err: %s \n", filePath, err.Error())
+			fmt.Printf("watchFileAutoMated can't load file! path: %s err: %s \n", filePath, err.Error())
 			return
 		}
 		number = fileState.Size()
