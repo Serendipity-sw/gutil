@@ -4,7 +4,9 @@ create by gloomy 2017-03-29 22:11:23
 */
 package gutil
 
-import "math"
+import (
+	"math"
+)
 
 /**
 四舍五入取舍
@@ -37,5 +39,8 @@ func RoundingPercentageByInt(number, subNumber, n int) float64 {
 	n += 2
 	pow10_n := math.Pow10(n)
 	percentage := math.Trunc((f+0.5/pow10_n)*pow10_n) / pow10_n
+	if math.IsInf(percentage, 0) || math.IsNaN(percentage) {
+		percentage = 0
+	}
 	return percentage * 100
 }
