@@ -10,6 +10,7 @@ import (
 	"bufio"
 	"io"
 	"os"
+	"path"
 	"strings"
 )
 
@@ -216,4 +217,19 @@ func AppendFileOpen(fileName string) (*os.File, error) {
 func FileOpen(fileName string) (*os.File, error) {
 	f, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY, 0644)
 	return f, err
+}
+
+/**
+获取文件名称及后缀名 未防止文件无后缀名,固这里返回值为数组对象
+创建人:邵炜
+创建时间:2016年9月7日16:40:14
+输入参数: 文件路劲或文件名称
+输出参数: 文件名 文件后缀名 数组 第一项为文件名称 第二项为文件后缀名
+*/
+func getMyFileName(filePaths string) *[]string {
+	fileName := path.Base(filePaths)
+	suffixName := path.Ext(fileName)
+	fileName = strings.TrimSuffix(fileName, suffixName)
+	files := []string{fileName, suffixName}
+	return &files
 }
