@@ -226,7 +226,7 @@ func FileOpen(fileName string) (*os.File, error) {
 输入参数: 文件路劲或文件名称
 输出参数: 文件名 文件后缀名 数组 第一项为文件名称 第二项为文件后缀名
 */
-func getMyFileName(filePaths string) *[]string {
+func GetMyFileName(filePaths string) *[]string {
 	fileName := path.Base(filePaths)
 	suffixName := path.Ext(fileName)
 	fileName = strings.TrimSuffix(fileName, suffixName)
