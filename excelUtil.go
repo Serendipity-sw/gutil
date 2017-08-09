@@ -24,7 +24,7 @@ func ReadExcel(excelFilePath string) (*map[string][][]string, error) {
 		for _, row := range sheet.Rows {
 			var contentArray []string
 			for _, cell := range row.Cells {
-				columnValue, err = cell.String()
+				columnValue = cell.String()
 				if err != nil {
 					fmt.Println("ReadExcel ", err.Error())
 					continue
