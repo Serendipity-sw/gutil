@@ -45,7 +45,7 @@ func CreateFileProcess(path string) error {
 func PathExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {
-		return false, nil
+		return true, nil
 	}
 	if os.IsNotExist(err) {
 		return false, nil
