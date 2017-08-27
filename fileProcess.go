@@ -9,10 +9,29 @@ package gutil
 import (
 	"bufio"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 	"strings"
 )
+
+//根据文件夹路径获取文件夹下所有文件
+//create by gloomy 2017-08-27 14:12:49
+func GetMyAllFileByDir(pathStr string) (*[]string, error) {
+	var fileNameArray []string
+	files, err := ioutil.ReadDir(pathStr)
+	if err != nil {
+		return nil, err
+	}
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		} else {
+			fileNameArray = append(fileNameArray, file.Name())
+		}
+	}
+	return &fileNameArray, nil
+}
 
 /**
 根据文件夹路径创建文件,如文件存在则不做任何操作
