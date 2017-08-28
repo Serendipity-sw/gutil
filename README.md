@@ -311,3 +311,12 @@
         dirPathStr 压缩包解压后路径
        输出参数:
         解压后存放文件的文件夹路径  错误对象
+
+#### fileDownLoad.go
+    1. HttpGetDownFile
+        文件下载
+        输入参数:
+            urlPathStr url请求路径
+            saveFilePath 下载文件保存路径
+        输出参数:
+            错误对象
