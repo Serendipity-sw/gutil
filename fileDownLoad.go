@@ -21,3 +21,9 @@ func HttpGetDownFile(urlPathStr, saveFilePath string) error {
 	}
 	return ioutil.WriteFile(saveFilePath, requestByte, 0644)
 }
+
+//断点续传
+//create by gloomy 2017-08-29 16:14:01
+func FileTransferProtocol() {
+
+}
