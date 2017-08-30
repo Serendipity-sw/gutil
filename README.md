@@ -320,3 +320,9 @@
             saveFilePath 下载文件保存路径
         输出参数:
             错误对象
+
+#### arrayUtil.go
+    1. UniqueSlice
+        字符串数组去重
+        输入参数:
+            数组指针
