@@ -326,3 +326,13 @@
         字符串数组去重
         输入参数:
             数组指针
+            
+#### ginUtil.go
+    1.GinInit
+        gin初始化
+        输入参数:
+            debug 是否为调试模式
+            serverListeningPort gin监听端口
+            setGinRouter 设置gin路由方法.传入参数*gin.Engine
+        输出参数:
+            *gin.Engine
