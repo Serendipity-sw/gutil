@@ -3,7 +3,6 @@ package gutil
 
 import (
 	"bytes"
-	"github.com/smtc/glog"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -45,11 +44,10 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 输入参数:文件路径
 输出参数:错误对象00001*/
 func HttpSendFile(sendHttpUrl, filePathStr, uploadFile string) error {
-	fileSizeInfo, err := os.Stat(filePathStr)
+	_, err := os.Stat(filePathStr)
 	if err != nil {
 		return err
 	}
-	glog.Info("sendFileProcess file size: %d filePathStr: %s \n", fileSizeInfo.Size(), filePathStr)
 	extraParams := map[string]string{
 		"title":       "My Document",
 		"author":      "Matt Aimonetti",

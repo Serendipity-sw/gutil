@@ -7,7 +7,6 @@ package gutil
 
 import (
 	"fmt"
-	"github.com/smtc/glog"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -100,6 +99,6 @@ func RmPidFile(pidFileStr string) {
 	}
 	err := os.Remove(pidFileStr)
 	if err != nil {
-		glog.Error("rmPidFile remove pidFile is error. err: %s \n", err.Error())
+		fmt.Printf("rmPidFile remove pidFile is error. err: %s \n", err.Error())
 	}
 }
