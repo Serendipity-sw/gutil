@@ -305,12 +305,20 @@
 
 #### zipUtil.go
     1. UnZip
-       压缩包解压
+       压缩包解压 (方法暂时遗弃,解压会出现数据丢失)
        输入参数:
         zipPathStr 压缩包路径
         dirPathStr 压缩包解压后路径
        输出参数:
         解压后存放文件的文件夹路径  错误对象
+        
+    2. UnGzip
+        gz压缩包解压 (暂时可能不支持压缩包内有多个文件的情况.未做测试)
+        输入参数:
+            zipPathStr 压缩包地址
+            filePathStr 压缩包解压后文件路径
+        输出参数:
+            错误对象
 
 #### fileDownLoad.go
     1. HttpGetDownFile
