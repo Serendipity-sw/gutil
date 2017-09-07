@@ -5,7 +5,6 @@ package gutil
 import (
 	"errors"
 	"fmt"
-	"github.com/gobwas/glob"
 	"github.com/howeyc/fsnotify"
 	"os"
 	"strings"
@@ -40,7 +39,7 @@ func WatchFile(filePathStr, matchFileName string, deleteFileCallBack, modifyFile
 					continue
 				}
 				if strings.TrimSpace(matchFileName) != "" {
-					if glob.MustCompile(matchFileName).Match(ev.Name) {
+					if MustCompileMatch(matchFileName, ev.Name) {
 						fmt.Printf("WatchFile file is not match! matchFileName: %s fileName: %s \n", matchFileName, ev.Name)
 						continue
 					}

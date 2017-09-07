@@ -5,6 +5,7 @@ create by gloomy 2017-03-29 22:11:23
 package gutil
 
 import (
+	"github.com/gobwas/glob"
 	"math"
 )
 
@@ -43,4 +44,10 @@ func RoundingPercentageByInt(number, subNumber, n int) float64 {
 		percentage = 0
 	}
 	return percentage * 100
+}
+
+//匹配规则是否存在
+//create by gloomy 2017-09-07 21:13:30
+func MustCompileMatch(matchStr, str string) bool {
+	return glob.MustCompile(matchStr).Match(str)
 }

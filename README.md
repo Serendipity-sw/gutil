@@ -179,6 +179,12 @@
         四舍五入取舍 百分比
         除数 被除数 取舍几位
         
+    4. MustCompileMatch
+        匹配字符串是否包含
+        输入参数:
+            matchStr 匹配字符串(例: match*  则匹配任何match开头的. *为全匹配)
+            str 被匹配字符串
+        
 #### ftpHelpProcess.go
 
     FTP帮助类实体
