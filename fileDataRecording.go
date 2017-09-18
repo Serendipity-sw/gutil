@@ -119,24 +119,33 @@ func (f *FileDataRecording) WriteData(dataStr string) (err error) {
 // 文件列表
 func (f *FileDataRecording) FileList() *[]string {
 	var (
-		fileArray []string
+		fileArray    []string
+		ext          string
+		err          error
+		fileInfo     os.FileInfo
+		fileNamePath string
 	)
-	filepath.Walk(f.FileProgram, func(path string, info os.FileInfo, err error) error {
+	fileNameIn, err := GetMyAllFileByDir(f.FileProgram)
+	if err != nil {
+		return &fileArray
+	}
+	for _, fileName := range *fileNameIn {
+		if ext = filepath.Ext(fileName); ext == ".tmp" {
+			continue
+		}
+		fileNamePath = fmt.Sprintf("%s%s", f.FileProgram, fileName)
+		fileInfo, err = os.Stat(fileNamePath)
 		if err != nil {
-			return nil
+			continue
 		}
-		if ext := filepath.Ext(path); ext == ".tmp" {
-			return nil
+		if fileInfo.Size() == 0 {
+			os.Remove(fileNamePath)
+			continue
 		}
-		if info.Size() == 0 {
-			os.Remove(path)
-			return nil
+		if strings.HasPrefix(fileName, f.FilePre) {
+			fileArray = append(fileArray, fileNamePath)
 		}
-		if strings.HasPrefix(path, f.FilePre) {
-			fileArray = append(fileArray, path)
-		}
-		return nil
-	})
+	}
 	return &fileArray
 }
 
@@ -145,34 +154,43 @@ func (f *FileDataRecording) FileList() *[]string {
 // 几天前
 func (f *FileDataRecording) RemoveOldFileList(days int) {
 	var (
-		timeDate   = time.Now().AddDate(0, 0, days).UnixNano()
-		unixNumber int
-		fileName   []string
+		timeDate      = time.Now().AddDate(0, 0, days).UnixNano()
+		unixNumber    int
+		fileNameSplit []string
+		err           error
+		ext           string
+		fileInfo      os.FileInfo
+		fileNamePath  string
 	)
-	filepath.Walk(f.FileProgram, func(path string, info os.FileInfo, err error) error {
+	fileNameIn, err := GetMyAllFileByDir(f.FileProgram)
+	if err != nil {
+		return
+	}
+	for _, fileName := range *fileNameIn {
+		if ext = filepath.Ext(fileName); ext == ".tmp" {
+			continue
+		}
+		fileNamePath = fmt.Sprintf("%s%s", f.FileProgram, fileName)
+		fileInfo, err = os.Stat(fileNamePath)
 		if err != nil {
-			return nil
+			continue
 		}
-		if ext := filepath.Ext(path); ext == ".tmp" {
-			return nil
+		if fileInfo.Size() == 0 {
+			os.Remove(fileNamePath)
+			continue
 		}
-		if info.Size() == 0 {
-			os.Remove(path)
-			return nil
-		}
-		if strings.HasPrefix(path, f.FilePre) {
-			fileName = strings.Split(path, "-")
-			if len(fileName) == 3 {
-				unixNumber, err = strconv.Atoi(fileName[1])
+		if strings.HasPrefix(fileName, f.FilePre) {
+			fileNameSplit = strings.Split(fileName, "-")
+			if len(fileNameSplit) == 3 {
+				unixNumber, err = strconv.Atoi(fileNameSplit[1])
 				if err != nil {
-					fmt.Printf("FileListRemoveOld fileProgram: %s path: %s err: %s \n", f.FileProgram, path, err.Error())
-					return nil
+					fmt.Printf("FileListRemoveOld fileProgram: %s path: %s err: %s \n", f.FileProgram, fileName, err.Error())
+					continue
 				}
 				if timeDate >= int64(unixNumber) {
-					os.Remove(path)
+					os.Remove(fileNamePath)
 				}
 			}
 		}
-		return nil
-	})
+	}
 }
