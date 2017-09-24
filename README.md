@@ -347,6 +347,6 @@
         输入参数:
             debug 是否为调试模式
             serverListeningPort gin监听端口
-            setGinRouter 设置gin路由方法.传入参数*gin.Engine
+            setGinRouter 设置gin路由方法.传入参数*gin.Engine及服务运行所需要的二级目录名称(如:程序运行使用http://www.baidu.com/map  其中map为二级目录名称)
         输出参数:
             *gin.Engine
