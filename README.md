@@ -350,3 +350,11 @@
             setGinRouter 设置gin路由方法.传入参数*gin.Engine及服务运行所需要的二级目录名称(如:程序运行使用http://www.baidu.com/map  其中map为二级目录名称)
         输出参数:
             *gin.Engine
+            
+#### logUtil.go
+    1. LogInit
+      日志初始化
+      当程序停止前需将glog进行关闭 调用glog.Close方法
+      输入参数:
+        debug 是否为调试模式,如果为调试模式,则在控制台进行日志输出,否则输出到日志文件中
+        logsDir 日志存放目录
