@@ -358,3 +358,10 @@
       输入参数:
         debug 是否为调试模式,如果为调试模式,则在控制台进行日志输出,否则输出到日志文件中
         logsDir 日志存放目录
+        
+#### captcha
+    增加golang验证码图片生成方法,修正自https://github.com/dchest/captcha 
+    删除内部自验证.
+    New 方法返回验证码
+    WriteImage 输出验证码图片,通过http方式
+    WriteAudio 输出音频,通过http方式
