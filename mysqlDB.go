@@ -127,6 +127,27 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 	return exec, nil
 }
 
+//查询返回map
+//create by gloomy 2018-01-16 17:52:15
+func MysqlSelectMap(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...interface{}) (*[]map[string]string, error) {
+	columnArrayIn,dataArrayIn,err:=MysqlSelectUnknowColumn(dbs,model,sqlStr,param)
+	if err != nil {
+		return nil,err
+	}
+	var(
+		list []map[string]string
+		dicArray map[string]string
+	)
+	for _, rowArray := range *dataArrayIn {
+		dicArray=make(map[string]string)
+		for index, columnName := range *columnArrayIn {
+			dicArray[columnName]=rowArray[index]
+		}
+		list=append(list,dicArray)
+	}
+	return &list,err
+}
+
 // 查询所有字段值
 // create by gloomy 2017-5-12 16:38:58
 func MysqlSelectUnknowColumn(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...interface{}) (*[]string, *[][]string, error) {
