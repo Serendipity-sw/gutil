@@ -130,7 +130,16 @@ func MySqlSqlExec(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...inte
 //查询返回map
 //create by gloomy 2018-01-16 17:52:15
 func MysqlSelectMap(dbs *sql.DB, model MySqlDBStruct, sqlStr string, param ...interface{}) (*[]map[string]string, error) {
-	columnArrayIn, dataArrayIn, err := MysqlSelectUnknowColumn(dbs, model, sqlStr, param)
+	var (
+		columnArrayIn *[]string
+		dataArrayIn   *[][]string
+		err           error
+	)
+	if param == nil {
+		columnArrayIn, dataArrayIn, err = MysqlSelectUnknowColumn(dbs, model, sqlStr)
+	} else {
+		columnArrayIn, dataArrayIn, err = MysqlSelectUnknowColumn(dbs, model, sqlStr, param...)
+	}
 	if err != nil {
 		return nil, err
 	}
