@@ -365,3 +365,16 @@
     New 方法返回验证码
     WriteImage 输出验证码图片,通过http方式
     WriteAudio 输出音频,通过http方式
+
+#### emailUtil.go
+    增加邮件发送类
+    1.SendEmail
+        输入参数
+            用户邮箱地址
+            用户密码
+            smtp服务器地址
+            发送端口
+            邮件标题
+            邮件内容
+            收件人邮箱集合
+            邮件类型(默认为:text/plain)
