@@ -383,3 +383,11 @@
             邮件内容
             收件人邮箱集合
             邮件类型(默认为:text/plain) 可以采用text/html的方式,这样可以在邮件内容中画表格html页面等(ps:别画的太前卫^_^)
+            
+#### cmdUtil.go
+    windows cmd命令
+    1. ExecCommand
+        输入参数: 需要执行的命令
+        输出参数:
+            命令行回馈字符串
+            错误对象
