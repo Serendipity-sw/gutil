@@ -16,7 +16,7 @@ base64图片转图片文件
 输入参数:图片base内容 图片文件存放路径(不包含图片名称)
 输出参数:图片名称 错误对象
 */
-func PictureBase64ToFile(fileContentTem *string) (string, error) {
+func PictureBase64ToFile(fileContentTem *string, filePath string) (string, error) {
 	fileContent := *fileContentTem
 	fileContentArray := strings.Split(fileContent, ",")
 	if len(fileContentArray) != 2 {
@@ -35,7 +35,7 @@ func PictureBase64ToFile(fileContentTem *string) (string, error) {
 		fileType = "jpg"
 	}
 	dist, _ := base64.StdEncoding.DecodeString(fileContentArray[1])
-	fileName := fmt.Sprintf("./%d.%s", time.Now().UnixNano(), fileType)
+	fileName := If(strings.TrimSpace(filePath) == "", fmt.Sprintf("./%d.%s", time.Now().UnixNano(), fileType), filePath).(string)
 	f, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	f.Write(dist)
 	f.Close()
