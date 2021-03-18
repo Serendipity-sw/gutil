@@ -9,9 +9,5 @@ import "runtime"
 */
 func SetCPUUseNumber(number int) {
 	numberCPU := runtime.NumCPU()
-	if number == 0 {
-		runtime.GOMAXPROCS(numberCPU)
-	} else {
-		runtime.GOMAXPROCS(If(number <= numberCPU, number, numberCPU).(int))
-	}
+	runtime.GOMAXPROCS(If(number <= numberCPU && number > 0, number, numberCPU).(int))
 }
