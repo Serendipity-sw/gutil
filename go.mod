@@ -1,4 +1,4 @@
-module gutil
+module github.com/swgloomy/gutil
 
 go 1.16
 
