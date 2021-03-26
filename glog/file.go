@@ -315,7 +315,7 @@ func CreateDirIfNotExist(dir string) error {
 	if !os.IsNotExist(err) {
 		return err
 	}
-	return os.MkdirAll(dir, os.ModeDir|0755)
+	return os.MkdirAll(dir, os.ModeDir|os.ModePerm)
 }
 
 func (fl *fileLogger) buildFileOut(prefix map[int]string) (err error) {
