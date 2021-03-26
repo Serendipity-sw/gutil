@@ -1,6 +1,6 @@
 package gutil
 
-import "github.com/smtc/glog"
+import "github.com/swgloomy/gutil/glog"
 
 //日志初始化
 //当程序停止前需将glog进行关闭 调用glog.Close方法
