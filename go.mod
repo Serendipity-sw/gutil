@@ -1,4 +1,4 @@
-module github.com/swgloomy/gutil
+module github.com/Serendipity-sw/gutil
 
 go 1.16
 
