@@ -1,4 +1,5 @@
-/**
+/*
+*
 redis帮助类
 create by gloomysw 2017-3-24 14:11:284
 */
@@ -6,7 +7,7 @@ package gutil
 
 import (
 	"fmt"
-	"github.com/garyburd/redigo/redis"
+	"github.com/gomodule/redigo/redis"
 	"time"
 )
 
