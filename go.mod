@@ -15,8 +15,7 @@ require (
 	github.com/klauspost/pgzip v1.2.6 // indirect
 	github.com/lib/pq v1.10.9
 	github.com/pkg/sftp v1.13.6
-	github.com/stretchr/testify v1.8.4 // indirect
-	github.com/swgloomy/gutil/glog v0.0.0-20230329060945-81bde4cd5ef0
+	github.com/swgloomy/gutil/glog v0.0.0-20240312115826-7b34a09d7ef7
 	github.com/tealeg/xlsx v1.0.5
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	golang.org/x/crypto v0.21.0
