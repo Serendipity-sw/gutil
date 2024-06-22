@@ -1,5 +1,5 @@
-// 压缩包解压
-// create by gloomy 2017-08-27 14:18:42
+//压缩包解压
+//create by gloomy 2017-08-27 14:18:42
 package gutil
 
 import (
