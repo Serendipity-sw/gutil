@@ -1,6 +1,6 @@
 module github.com/Serendipity-sw/gutil
 
-go 1.23.0
+go 1.24.0
 
 toolchain go1.24.2
 
@@ -16,7 +16,7 @@ require (
 	github.com/pkg/sftp v1.13.9
 	github.com/swgloomy/gutil/glog v0.0.0-20240622130543-c11d8b00fcdf
 	github.com/tealeg/xlsx v1.0.5
-	golang.org/x/crypto v0.38.0
+	golang.org/x/crypto v0.46.0
 )
 
 require (
@@ -30,5 +30,5 @@ require (
 	github.com/kr/fs v0.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ulikunitz/xz v0.5.14 // indirect
-	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
 )
